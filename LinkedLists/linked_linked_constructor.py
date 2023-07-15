@@ -23,13 +23,13 @@ class LinkedList:
 
     def print_list(self):
         temp = self.head
-        while temp is not None:
-            print(temp.value)
+        while (temp is not None):
+            print("Node: ", temp.value)
             temp = temp.next
         
     def append(self, value):
         new_node = Node(value)
-        if self.head is None:
+        if (self.head is None):
             self.head = new_node
             self.tail = new_node
         else:
@@ -40,13 +40,13 @@ class LinkedList:
     
     def pop(self):
         # return none when empty
-        if self.length == 0:
+        if (self.length == 0):
             return None
 
 
         temp = self.head
         pre = self.head
-        while(temp.next):
+        while (temp.next):
             pre = temp
             temp = temp.next # keep temp 1 step ahead of pre
         self.tail = pre
@@ -73,11 +73,61 @@ class LinkedList:
         self.length += 1
         return True
 
+    def pop_first(self):
+        if self.length == 0:
+            return None
+        
+        temp = self.head
+        self.head = self.head.next
+        temp.next = None # needed to remove node from list
+        self.length -= 1
+
+        # When only 1 node remaining
+        if (self.length == 0):
+            self.tail = None
+
+        return temp
+    
+    def get(self, index):
+
+        if index < 0 or index >= self.length:
+            return None
+        
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        return temp
+        
+        # if self.length == 0:
+        #     return None
+    
+        # # Index is within list length
+        # if index < self.length:
+        #     print("Get index: ", index)
+        #     start_position = 0
+        #     temp = self.head
+        #     while start_position <= index and temp.next is not None:
+        #         print("at start postion: ", start_position)
+        #         print("temp: ", temp.value)
+        #         temp = temp.next
+        #         print("temp: ", temp)
+        #         start_position += 1
+
+        # # Invalid index
+        # else:
+        #     print("Invalid index!")
+        #     return None
+
+
     # def insert(self, value):
     #     pass
 
-linked_list = LinkedList(2)
+linked_list = LinkedList(0)
+linked_list.append(1)
+linked_list.append(2)
 linked_list.append(3)
-linked_list.prepend(1)
+print(linked_list.length)
 
-linked_list.print_list()
+print(linked_list.get(3))
+
+# linked_list.print_list()
