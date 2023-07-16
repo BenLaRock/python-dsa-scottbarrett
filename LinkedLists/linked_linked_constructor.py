@@ -98,36 +98,26 @@ class LinkedList:
             temp = temp.next
         return temp
         
-        # if self.length == 0:
-        #     return None
-    
-        # # Index is within list length
-        # if index < self.length:
-        #     print("Get index: ", index)
-        #     start_position = 0
-        #     temp = self.head
-        #     while start_position <= index and temp.next is not None:
-        #         print("at start postion: ", start_position)
-        #         print("temp: ", temp.value)
-        #         temp = temp.next
-        #         print("temp: ", temp)
-        #         start_position += 1
+    def set_value(self, index, value):    
+        temp = self.get(index)
 
-        # # Invalid index
-        # else:
-        #     print("Invalid index!")
-        #     return None
-
+        if temp is not None:
+            temp.value = value
+            return True
+        
+        return False
 
     # def insert(self, value):
     #     pass
 
-linked_list = LinkedList(0)
-linked_list.append(1)
-linked_list.append(2)
+linked_list = LinkedList(11)
 linked_list.append(3)
-print(linked_list.length)
+linked_list.append(23)
+linked_list.append(7)
+# print(linked_list.length)
 
-print(linked_list.get(3))
+# print(linked_list.get(1).value)
+linked_list.set_value(3, 99)
 
-# linked_list.print_list()
+
+linked_list.print_list()
