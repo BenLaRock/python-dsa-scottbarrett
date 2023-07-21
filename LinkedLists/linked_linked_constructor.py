@@ -124,11 +124,43 @@ class LinkedList:
         self.length += 1
         return True
 
-linked_list = LinkedList(11)
-linked_list.append(3)
-linked_list.append(23)
-linked_list.append(7)
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+    
+        if index == 0:
+            return self.pop_first()
+        
+        if index == self.length - 1:
+            return self.pop()
+        
+        pre = self.get(index - 1)
+        temp = pre.next # o(1) vs o(n) using self.get(index)
+        pre.next = temp.next
+        temp.next = None
+        self.length -= 1
+        return temp
 
-linked_list.insert(3, 999)
-print('Length: ', linked_list.length)
+    def reverse(self):
+        # Flip head and tail nodes
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+        after = temp.next
+        before = None
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before # "flips" the pointer
+            before = temp
+            temp = after
+
+linked_list = LinkedList(1)
+linked_list.append(2)
+linked_list.append(3)
+linked_list.append(4)
+
+linked_list.reverse()
+
 linked_list.print_list()
+print(f"(Len: {linked_list.length})")
