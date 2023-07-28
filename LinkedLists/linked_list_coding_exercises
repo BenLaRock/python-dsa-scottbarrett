@@ -136,18 +136,27 @@ class LinkedList:
         if self.length == 1:
             return True
         
-        start = self.head
-        end = self.tail
-
-        self.head = end
-        self.tail = start
-
-        temp = self.tail
+        # Flip head and tail pointers
+        temp = self.head
+        self.head = self.tail # head is now tail
+        self.tail = temp # tail now points to temp (head)
+        print("self.head: ", self.head.value)
+        
         print("temp: ", temp.value)
-        print("temp.next: ", temp.next.value)
-        while temp.next:
-            temp = temp.next
+        after = temp.next
+        print("after: ", after.value)
+        before = None
+        print("before: ", before)
+        print()
+
+        for i in range(self.length):
             print("temp: ", temp.value)
+            after = temp.next
+            print("after: ", after) # after points to the next node in the orig sequence
+
+            temp.next = before # flip the next point; first item next points to None but then before gets updated
+            before = temp # before moves up from None to current node (temp)
+            temp = after # 
         
 
 my_linked_list = LinkedList(1)
