@@ -140,53 +140,62 @@ class LinkedList:
         temp = self.head
         self.head = self.tail # head is now tail
         self.tail = temp # tail now points to temp (head)
-        print("self.head: ", self.head.value)
         
-        print("temp: ", temp.value)
         after = temp.next
-        print("after: ", after.value)
         before = None
-        print("before: ", before)
-        print()
-
-        for i in range(self.length):
-            print("temp: ", temp.value)
-            after = temp.next
-            print("after: ", after) # after points to the next node in the orig sequence
-
-            temp.next = before # flip the next point; first item next points to None but then before gets updated
+        for _ in range(self.length):
+            after = temp.next # after points to the next node in the orig sequence
+            temp.next = before # flip the next pointer; first item next points to None but then before gets updated
             before = temp # before moves up from None to current node (temp)
             temp = after # 
+        
+    def find_middle_node(self):
+        slow = self.head
+        fast = self.head
+
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+                
+        return slow
+
+    def has_loop(self):
+        slow = self.head
+        fast = self.head
+
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+            if fast == slow:
+                return True
+        
+        return False
+
+def find_kth_from_end(ll, k):
+    if ll.length < k:
+        return None
+    else:
+        ll.reverse()
+        return ll.get(k - 1)
         
 
 my_linked_list = LinkedList(1)
 my_linked_list.append(2)
 my_linked_list.append(3)
 my_linked_list.append(4)
+my_linked_list.append(5)
 
-print('LL before reverse():')
-my_linked_list.print_list()
 
-my_linked_list.reverse()
+k = 2
+result = find_kth_from_end(my_linked_list, k)
 
-print('\nLL after reverse():')
-my_linked_list.print_list()
+print(result.value)  # Output: 4
 
 
 
 """
     EXPECTED OUTPUT:
     ----------------
-    LL before reverse():
-    1
-    2
-    3
     4
-
-    LL after reverse():
-    4
-    3
-    2
-    1
     
 """
