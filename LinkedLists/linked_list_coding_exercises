@@ -171,12 +171,30 @@ class LinkedList:
         
         return False
 
-def find_kth_from_end(ll, k):
-    if ll.length < k:
-        return None
-    else:
-        ll.reverse()
-        return ll.get(k - 1)
+def find_kth_from_end(linked_list, k):
+    # The way this works is to use 2 pointers and create a "gap" between then
+    # based on value k. Once the "gap" is set, the fast pointer is moved to the 
+    # end and slow pointer moves likewise; when fast pointer cannot move further,
+    # slow pointer will be at kth position from the end.
+
+    fast = linked_list.head
+    slow = linked_list.head
+
+    for i in range(k):
+        print("i: ", i)
+        print("fast at start of loop: ", fast.value)
+        if fast is None:
+            return None
+        fast = fast.next
+        print("fast at end of loop: ", fast.value)
+    
+    while fast is not None:
+        print("fast: ", fast.value)
+        print("slow at start of while loop: ", slow.value)
+        slow = slow.next
+        fast = fast.next
+        print("slow at end of while loop: ", slow.value)
+    return slow
         
 
 my_linked_list = LinkedList(1)
@@ -186,7 +204,7 @@ my_linked_list.append(4)
 my_linked_list.append(5)
 
 
-k = 2
+k = 4
 result = find_kth_from_end(my_linked_list, k)
 
 print(result.value)  # Output: 4
