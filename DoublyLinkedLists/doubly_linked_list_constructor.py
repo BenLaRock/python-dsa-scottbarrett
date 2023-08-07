@@ -124,13 +124,39 @@ class DoublyLinkedList():
         self.length += 1
         return True
 
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length -1:
+            return self.pop()
+        
+        # # More readable method
+        # before = self.get(index - 1)
+        # temp = before.next
+        # after = temp.next
+
+        # # Connect before to after bypassing temp
+        # before.next = after
+        # after.prev = before
+
+        # More concise method
+        temp = self.get(index)
+        temp.next.prev = temp.prev # points after at before
+        temp.prev.next = temp.next # points before at after
+
+        # Remove temp's pointers
+        temp.next = None
+        temp.prev = None
+        return temp
 
 
-my_doubly_linked_list = DoublyLinkedList(11)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(23)
-my_doubly_linked_list.append(7)
+my_doubly_linked_list = DoublyLinkedList(0)
+my_doubly_linked_list.append(1)
+my_doubly_linked_list.append(2)
+# my_doubly_linked_list.append(7)
 
-my_doubly_linked_list.insert(2, 4)
+my_doubly_linked_list.remove(1)
 
 my_doubly_linked_list.print_list()
