@@ -148,6 +148,7 @@ class DoublyLinkedList():
 
         # Remove temp's pointers
         temp.next = None
+        self.length -= 1
         temp.prev = None
         return temp
 

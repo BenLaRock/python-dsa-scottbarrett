@@ -81,24 +81,108 @@ class DoublyLinkedList():
                 temp = temp.prev
         return temp
 
-    def set(self, index, value):
+    def set_value(self, index, value):
+        temp = self.get(index)
+        if temp is None:
+            return False
+        temp.value = value
+        return True
+
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
         new_node = Node(value)
-        # if index < 0 or index > self.length:
+        before = self.get(index - 1)
+        after = before.next
+        # Connect new node's pointers to before and after
+        new_node.prev = before
+        new_node.next = after
+        # Connect before and after's pointers to new node
+        before.next = new_node
+        after.prev = new_node
+        self.length += 1
+        return True
+
+    def remove(self, index):
+        print("index: ", index)
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            print("pop()")
+            return self.pop()
+        
+        temp = self.get(index)
+        temp.next.prev = temp.prev
+        temp.prev.next = temp.next
+
+        temp.next = None
+        temp.prev = None
+        self.length -= 1
+        return temp
+    
+    def swap_first_last(self):
+        # # Original code
+        # if self.head is None:
         #     return False
+        # if self.length == 1:
+        #     return False
+        # first = self.head.value
+        # last = self.tail.value
+        # self.head.value = last
+        # self.tail.value = first
+        # return True
+
+        # # Streamlined
+        # Empty list or 1 node
+        if self.head is None or self.head == self.tail:
+            return
+        # 1-line 2 variable swap
+        self.head.value, self.tail.value = self.tail.value, self.head.value
+        
+    def reverse(self):
+        if self.head is None or self.head == self.tail:
+            return
+        old_first = self.head
+        old_last = self.tail
+
+        temp = self.head
+        for _ in range(self.length):
+            print("temp: ", temp.value)
+            before = temp.prev
+            after = temp.next
+
+            
+            temp.prev = after
+            temp.next = before
+
+            # print("temp.prev: ", temp.prev)
+            # print("temp.next: ", temp.next)
+
+            temp = temp.prev
+        print("final temp: ", temp)
 
 
-
-my_doubly_linked_list = DoublyLinkedList(11)
+my_doubly_linked_list = DoublyLinkedList(1)
+my_doubly_linked_list.append(2)
 my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(23)
-my_doubly_linked_list.append(7)
+my_doubly_linked_list.append(4)
+my_doubly_linked_list.append(5)
 
-print('DLL before set_value():')
+
+print('DLL before reverse():')
 my_doubly_linked_list.print_list()
 
-my_doubly_linked_list.set_value(1,4)
 
-print('\nDLL after set_value():')
+my_doubly_linked_list.reverse()
+
+
+print('\nDLL after reverse():')
 my_doubly_linked_list.print_list()
 
 
@@ -106,16 +190,19 @@ my_doubly_linked_list.print_list()
 """
     EXPECTED OUTPUT:
     ----------------
-    DLL before set_value():
-    11
+    DLL before reverse():
+    1
+    2
     3
-    23
-    7
-
-    DLL after set_value():
-    11
     4
-    23
-    7
+    5
+
+    DLL after reverse():
+    5
+    4
+    3
+    2
+    1
 
 """
+
