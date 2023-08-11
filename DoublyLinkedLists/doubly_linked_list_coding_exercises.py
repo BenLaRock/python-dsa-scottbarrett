@@ -148,61 +148,83 @@ class DoublyLinkedList():
     def reverse(self):
         if self.head is None or self.head == self.tail:
             return
-        old_first = self.head
-        old_last = self.tail
+        # current_node = self.head
+        # while current_node is not None:
+        #     print("current_node: ", current_node.value)
 
+        #     # Keeps a reference to the original next node
+        #     temp_next = current_node.next
+        #     print("Original next node (pre reverse): ", temp_next)
+
+        #     # Flip next and prev pointers for current node
+        #     # Next now points at what was *prev* node
+        #     current_node.next = current_node.prev
+        #     print("current_node.next: ", current_node.next)
+
+        #     # Prev now points at what was original *next* node
+        #     current_node.prev = temp_next
+        #     print("current_node.prev: ", current_node.prev)
+
+        #     # Move current node along to traverse the list
+        #     current_node = temp_next
+        #     print()
+        # Swap head and tail pointers
+
+        # Even more concise
         temp = self.head
-        for _ in range(self.length):
-            print("temp: ", temp.value)
-            before = temp.prev
-            after = temp.next
-
-            
-            temp.prev = after
-            temp.next = before
-
-            # print("temp.prev: ", temp.prev)
-            # print("temp.next: ", temp.next)
-
+        while temp is not None:
+            # Flip the pointers
+            temp.next, temp.prev = temp.prev, temp.next
+            # Move along (prev is actually the orig next)
             temp = temp.prev
-        print("final temp: ", temp)
+        self.head, self.tail = self.tail, self.head
+
+    def is_palindrome(self):
+        # Should check without reversing the list
+
+        # 1 item list is always palindrome
+        if self.length <= 1:
+            return True
+        forward_node = self.head
+        backward_node = self.tail
+        for i in range(self.length // 2):
+            print(i)
+            break
 
 
-my_doubly_linked_list = DoublyLinkedList(1)
-my_doubly_linked_list.append(2)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(4)
-my_doubly_linked_list.append(5)
 
 
-print('DLL before reverse():')
-my_doubly_linked_list.print_list()
+my_dll_1 = DoublyLinkedList(1)
+my_dll_1.append(2)
+my_dll_1.append(3)
+my_dll_1.append(2)
+my_dll_1.append(1)
+
+print('my_dll_1 is_palindrome:')
+print( my_dll_1.is_palindrome() )
 
 
-my_doubly_linked_list.reverse()
+my_dll_2 = DoublyLinkedList(1)
+my_dll_2.append(2)
+my_dll_2.append(3)
 
-
-print('\nDLL after reverse():')
-my_doubly_linked_list.print_list()
+print('\nmy_dll_2 is_palindrome:')
+print( my_dll_2.is_palindrome() )
 
 
 
 """
     EXPECTED OUTPUT:
     ----------------
-    DLL before reverse():
-    1
-    2
-    3
-    4
-    5
+    my_dll_1 is_palindrome:
+    True
 
-    DLL after reverse():
-    5
-    4
-    3
-    2
-    1
+    my_dll_2 is_palindrome:
+    False
 
 """
 
+
+x = 3
+x &= 5
+print(x)
