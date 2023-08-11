@@ -181,50 +181,93 @@ class DoublyLinkedList():
 
     def is_palindrome(self):
         # Should check without reversing the list
-
-        # 1 item list is always palindrome
+        # 1-item list is always palindrome
         if self.length <= 1:
             return True
+        
+        # The way this works is you have 2 pointers 
+        # that point to head and tail. Then you loop
+        # through the halfway point (no need to go further
+        # as you are also stepping back from tail each time; 
+        # eventually pointers meet in the middle) and check
+        # if head and tail values are equal.
         forward_node = self.head
         backward_node = self.tail
         for i in range(self.length // 2):
-            print(i)
-            break
+            print("i: ", i)
+            print("forward_node.value: ", forward_node.value)
+            print("backward_node.value: ", backward_node.value)
+            if forward_node.value != backward_node.value:
+                return False
+            forward_node = forward_node.next
+            backward_node = backward_node.prev
+        return True
+
+    def swap_pairs(self):
+        if self.head is None:
+            return None
+        if self.length == 1:
+            return self
+
+        dummy = self.head
+        prev = dummy
+
+        for i in range(self.length // 2):
+            print("i: ", i)
+
+            first_node = dummy
+            second_node = first_node.next
+            
+            prev.next = second_node
+            first_node.next = second_node.next
+
+            second_node.next = first_node
+
+            second_node.prev = prev
+            first_node.prev = second_node
+            if first_node.next is not None:
+                first_node.next.prev = first_node
+            
+            self.head = first_node.next
+            prev = first_node
+
+            self.head = dummy.next
+            if self.head is not None:
+                self.head.prev = None
+            print()
+        print()
+        
+
+my_dll = DoublyLinkedList(1)
+my_dll.append(2)
+my_dll.append(3)
+my_dll.append(4)
+# my_dll.append(5)
+# my_dll.append(6)
 
 
+print('my_dll before swap_pairs:')
+my_dll.print_list()
+
+my_dll.swap_pairs() 
 
 
-my_dll_1 = DoublyLinkedList(1)
-my_dll_1.append(2)
-my_dll_1.append(3)
-my_dll_1.append(2)
-my_dll_1.append(1)
-
-print('my_dll_1 is_palindrome:')
-print( my_dll_1.is_palindrome() )
+print('my_dll after swap_pairs:')
+my_dll.print_list()
 
 
-my_dll_2 = DoublyLinkedList(1)
-my_dll_2.append(2)
-my_dll_2.append(3)
+# """
+#     EXPECTED OUTPUT:
+#     ----------------
+#     my_dll before swap_pairs:
+#     1
+#     2
+#     3
+#     4
+#     my_dll after swap_pairs:
+#     2
+#     1
+#     4
+#     3
 
-print('\nmy_dll_2 is_palindrome:')
-print( my_dll_2.is_palindrome() )
-
-
-
-"""
-    EXPECTED OUTPUT:
-    ----------------
-    my_dll_1 is_palindrome:
-    True
-
-    my_dll_2 is_palindrome:
-    False
-
-"""
-
-
-x = 3
-x &= 5
-print(x)
+# """
