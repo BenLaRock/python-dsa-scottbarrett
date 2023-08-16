@@ -103,42 +103,57 @@ class Stack: # implmented with list not linked list
             return None
         return self.stack_list.pop()
 
-test_case = ")()"
-def is_balanced_parentheses(test_case):
-    stack = Stack()
+
+# test_case = ")("
+# # My attempt
+# def is_balanced_parentheses(test_case):
+#     stack = Stack()
     
-    for i in (test_case):
-        print("i getting pushed onto stack: ", i)
-        stack.push(i)
+#     for i in (test_case):
+#         # print("i getting pushed onto stack: ", i)
+#         stack.push(i)
 
-    if stack.size() == 0 or stack.is_empty() == True:
-        return True
+#     if stack.size() == 0 or stack.is_empty() == True:
+#         return True
     
-    num_open_parens = 0
-    num_close_parens = 0
+#     num_open_parens = 0
+#     num_close_parens = 0
 
-    while not stack.is_empty():
-        popped = stack.pop()
-        print("popped: ", popped)
+#     for i in range(stack.size()):
+#         popped = stack.pop()
 
-        # Cannot have an unmatched num_close_parens paren
-        if popped == "(": # remember, coming off in reverse of input string
-            return False
-        
-        if popped == "(":
-            num_open_parens += 1
-        elif popped == ")":
-            num_close_parens += 1
+#         # first popped item cannot be left parens, is unbalanced
+#         if i == 0 and popped == "(":
+#             return False
+#         # after first loop we just count how many left and right parens there are
+#         if popped == "(":
+#             num_open_parens += 1
+#         elif popped == ")":
+#             num_close_parens += 1
 
-    print("open: ", num_open_parens)
-    print("closed: ", num_close_parens)
+#     if num_open_parens != num_close_parens:
+#         return False
+#     return True
 
-    if num_open_parens != num_close_parens:
-        return False
-    return True
-        
+# # Actual solution
+# def is_balanced_parentheses(parentheses):
+#     stack = Stack()
 
-print("is balanced? ", is_balanced_parentheses(test_case))
+#     # Iterate over string
+#     for p in parentheses:
+#         print("p: ", p)
+#         if p == "(":
+#             stack.push(p)
+#         # When p is a close parens, check if there is an accompanying open parens
+#         # in the stack; if there isn't one (or empty) then unbalanced
+#         elif p == ")":
+#             if stack.is_empty() or stack.pop() != "(":
+#                 return False
+    
+#     # Balanced when every left parens that goes in is accompanied by a pop
+#     return stack.is_empty()
+
+# print("is balanced? ", is_balanced_parentheses(test_case))
 
 # def test_is_balanced_parentheses():
 #     try:
@@ -208,3 +223,4 @@ print("is balanced? ", is_balanced_parentheses(test_case))
 #         print('Test case 11 failed')
 
 # test_is_balanced_parentheses()
+
