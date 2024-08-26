@@ -9,4 +9,4 @@ head = {
     }
 }
 
-print(head)
+print(head.next.next.value)
