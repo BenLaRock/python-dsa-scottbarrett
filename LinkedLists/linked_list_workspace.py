@@ -1,14 +1,20 @@
 class Node:
-   def __init__(self, value):
-       self.value = value
-       self.next = None
-
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        
 class LinkedList:
     def __init__(self, value):
         new_node = Node(value)
         self.head = new_node
         self.tail = new_node
-        self.length = 1
+        self.length = 1 
+    
+    def print_list(self):
+        temp = self.head
+        while temp is not None:
+            print(temp.value)
+            temp = temp.next
     
     def append(self, value):
         new_node = Node(value)
@@ -38,12 +44,26 @@ class LinkedList:
             self.head = None
             self.tail = None
         return temp
-    
-    def prepend(self, value):
-        ...
 
-    def insert(self, index, value):
-        ...
+my_linked_list = LinkedList(1)
+my_linked_list.append(2)
+my_linked_list.append(3)
 
-my_linked_list = LinkedList(4)
-print(my_linked_list.head.value)
+print("popped: ", my_linked_list.pop().value)
+# print("popped: ", my_linked_list.pop().value)
+# print("popped: ", my_linked_list.pop().value)
+# print("popped: ", my_linked_list.pop().value)
+
+print(
+    "head: ", 
+    my_linked_list.head, 
+    # "head.next: ", 
+    # my_linked_list.head.next
+    )
+print(
+    "tail: ", 
+    my_linked_list.tail, 
+    # "tail.next: ", 
+    # my_linked_list.tail.next
+    )
+# # my_linked_list.print_list()
